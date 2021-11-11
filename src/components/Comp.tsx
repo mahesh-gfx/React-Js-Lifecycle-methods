@@ -8,13 +8,33 @@ export default class Comp extends Component<any, any> {
 
   _handleSubmit = (event: any) => {
     event.preventDefault();
-    console.log(event.target.value);
-    this.setState({ name: event.target.value });
+    this.setState({ num: this.state.num + 1 });
   };
 
-  _handleOnChange = (event: any) => {};
+  _handleOnChange = (event: any) => {
+    const { name, value } = event.target;
+    this.setState({ name: value });
+  };
+
+  componentDidMount() {
+    console.log("componentDidMount");
+  }
+
+  componentDidUpdate(prevProps: any, prevState: any) {
+    console.log("componentDidUpdate", prevProps, prevState);
+  }
+
+  componentWillUnmount() {
+    console.log("componentWillUnmount");
+  }
+
+  shouldComponentUpdate(nextProps: any, nextState: any) {
+    console.log("shouldComponentUpdate");
+    return true;
+  }
 
   render() {
+    console.log("I am rendering!");
     const { name, num } = this.state;
     return (
       <div>
@@ -29,6 +49,7 @@ export default class Comp extends Component<any, any> {
             id="username"
             placeholder="Your Name"
             value={name}
+            onChange={this._handleOnChange}
           />
           <button>Change My Name</button>
         </form>
